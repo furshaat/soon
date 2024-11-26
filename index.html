@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قريبا </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <h1>  قريبا في بوليفارد المحمدية  </h1>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.instagram.com/furshaat/" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@furshaat" target="_blank" class="social-icon">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.facebook.com/furshaat" target="_blank" class="social-icon">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.youtube.com/@furshaat" target="_blank" class="social-icon">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://x.com/furshaat" target="_blank" class="social-icon">
+                <i class="fa-solid fa-x"></i>
+            </a>
+            <a href="https://snapchat.com/t/9Cml14df" target="_blank" class="social-icon">
+                <i class="fab fa-snapchat"></i>
+            </a>
+        </div>
+
+        <div class="buttons">
+            <button class="button" onclick="openModal('contactForm')"> حاب تكون لك دعوة خاصة للإفتتاح؟</button>
+            <button class="button" onclick="openModal('messageForm')"> توقع ايش حيكون نشاطنا واربح معانا</button>
+        </div>
+    </div>
+
+<!-- Contact Form Modal -->
+<div id="contactForm" class="modal">
+    <div class="modal-content">
+        <button class="close-button" onclick="closeModal('contactForm')">&times;</button>
+        <h2 style="margin-bottom: 20px;">Contact Information</h2>
+        <form onsubmit="submitForm(event, 'contactForm')">
+            <input type="hidden" name="access_key" value="6a7e46df-53ce-4ffe-be77-97eb03b5187d">
+            <input type="hidden" name="subject" value="New Contact Form Submission">
+            
+            <div class="form-group">
+                <label for="name1">Name</label>
+                <input type="text" name="name" id="name1" required>
+            </div>
+            <div class="form-group">
+                <label for="number1">Phone Number</label>
+                <input type="tel" name="phone" id="number1" required>
+            </div>
+            <div class="form-group">
+                <label for="instagram">Instagram Username (optional)</label>
+                <input type="text" name="instagram" id="instagram">
+            </div>
+            <div class="form-group">
+                <label for="twitter">X Username (optional)</label>
+                <input type="text" name="twitter" id="twitter">
+            </div>
+            <div class="form-group">
+                <label for="snapchat">Snapchat Username (optional)</label>
+                <input type="text" name="snapchat" id="snapchat">
+            </div>
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Message Form Modal -->
+<div id="messageForm" class="modal">
+    <div class="modal-content">
+        <button class="close-button" onclick="closeModal('messageForm')">&times;</button>
+        <h2 style="margin-bottom: 20px;">Send Message</h2>
+        <form onsubmit="submitForm(event, 'messageForm')">
+            <input type="hidden" name="access_key" value="6a7e46df-53ce-4ffe-be77-97eb03b5187d">
+            <input type="hidden" name="subject" value="New Message Form Submission">
+            
+            <div class="form-group">
+                <label for="name2">Name</label>
+                <input type="text" name="name" id="name2" required>
+            </div>
+            <div class="form-group">
+                <label for="number2">Phone Number</label>
+                <input type="tel" name="phone" id="number2" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="button">Send Message</button>
+        </form>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
