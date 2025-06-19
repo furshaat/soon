@@ -1,105 +1,480 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قريبا </title>
+    <title>الفرشاة كلينك</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1f302f 0%, #000000 50%, #0f2612 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(246, 185, 26, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header with logo */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(246, 185, 26, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(246, 185, 26, 0.3);
+        }
+
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .clinic-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f1deb4;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Status indicator */
+        .status-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: blink 2s infinite;
+        }
+
+        .open { background-color: #4CAF50; }
+        .closed { background-color: #f44336; }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .working-hours {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .buttons-container {
+            display: grid;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #f1deb4, #ffd700);
+            color: #1f302f;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(246, 185, 26, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(246, 185, 26, 0.5);
+            background: linear-gradient(45deg, #ffd700, #f1deb4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Social media section */
+        .social-section {
+            margin-top: 40px;
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .social-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #f1deb4;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(246, 185, 26, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f1deb4;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: #f1deb4;
+            color: #1f302f;
+            transform: scale(1.1);
+        }
+
+        /* Image modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .clinic-name {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                font-size: 1rem;
+                padding: 15px 20px;
+            }
+            
+            .social-icons {
+                gap: 10px;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Animated background -->
+    <div class="bg-animation"></div>
+
     <div class="container">
-        <div class="profile">
-            <h1>  قريبا في بوليفارد المحمدية  </h1>
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <img src="logo.png" alt="الفرشاة كلينك">
+            </div>
+            <h1 class="clinic-name">الفرشاة كلينك</h1>
         </div>
 
-        <div class="social-icons">
-            <a href="https://www.instagram.com/furshaat/" target="_blank" class="social-icon">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.tiktok.com/@furshaat" target="_blank" class="social-icon">
-                <i class="fab fa-tiktok"></i>
-            </a>
-            <a href="https://www.facebook.com/furshaat" target="_blank" class="social-icon">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.youtube.com/@furshaat" target="_blank" class="social-icon">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://x.com/furshaat" target="_blank" class="social-icon">
-                <i class="fa-solid fa-x"></i>
-            </a>
-            <a href="https://snapchat.com/t/9Cml14df" target="_blank" class="social-icon">
-                <i class="fab fa-snapchat"></i>
-            </a>
+        <!-- Status and Working Hours -->
+        <div class="status-container">
+            <div class="status">
+                <span id="status-text">جاري التحميل...</span>
+                <span id="status-indicator" class="status-indicator"></span>
+            </div>
+            <div class="working-hours">
+                <p><strong>أوقات العمل:</strong></p>
+                <p>من السبت الى الأحد: 24 ساعة</p>
+                <p>يوم الجمعة: من 4:00 عصراً</p>
+            </div>
         </div>
 
-        <div class="buttons">
-            <button class="button" onclick="openModal('contactForm')"> حاب تكون لك دعوة خاصة للإفتتاح؟</button>
-            <button class="button" onclick="openModal('messageForm')"> توقع ايش حيكون نشاطنا واربح معانا</button>
+        <!-- Main Buttons -->
+        <div class="buttons-container">
+            <button class="btn" onclick="openLocation()">
+                <i class="fas fa-map-marker-alt"></i>
+                في بوليفارد المحمدية، المدينة المنورة (اضغط للموقع)
+            </button>
+
+            <a href="tel:+966547199970" class="btn">
+                <i class="fas fa-phone"></i>
+                الاتصال
+            </a>
+
+            <a href="https://wa.me/966547199970" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i>
+                التواصل واتساب مع قسم الأسنان
+            </a>
+
+            <a href="https://wa.me/966547199980" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i>
+                التواصل واتساب مع قسم الجلدية والتجميل والتغذية
+            </a>
+
+            <a href="https://forms.gle/XGCoN4NuPLTvfjQn9" target="_blank" class="btn">
+                <i class="fas fa-calendar-alt"></i>
+                حجز موعد
+            </a>
+
+            <button class="btn" onclick="showOffers()">
+                <i class="fas fa-tags"></i>
+                العروض الحالية
+            </button>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="social-section">
+            <h3 class="social-title">تابعونا على</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/furshaat/" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@furshaat" target="_blank" class="social-icon">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com/furshaat" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.youtube.com/@furshaat" target="_blank" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://x.com/furshaat" target="_blank" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://snapchat.com/t/9Cml14df" target="_blank" class="social-icon">
+                    <i class="fab fa-snapchat"></i>
+                </a>
+            </div>
         </div>
     </div>
 
-<!-- Contact Form Modal -->
-<div id="contactForm" class="modal">
-    <div class="modal-content">
-        <button class="close-button" onclick="closeModal('contactForm')">&times;</button>
-        <h2 style="margin-bottom: 20px;"> بيانات التواصل</h2>
-        <form onsubmit="submitForm(event, 'contactForm')">
-            <input type="hidden" name="access_key" value="6a7e46df-53ce-4ffe-be77-97eb03b5187d">
-            <input type="hidden" name="subject" value="New Contact Form Submission">
+    <!-- Image Modal for Offers -->
+    <div id="offersModal" class="modal">
+        <span class="close-modal" onclick="closeOffers()">&times;</span>
+        <img id="offersImage" class="modal-content" src="" alt="العروض الحالية">
+    </div>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const bgAnimation = document.querySelector('.bg-animation');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 20 + 10;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Check if clinic is open
+        function updateStatus() {
+            const now = new Date();
+            const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            const currentHour = now.getHours();
             
-            <div class="form-group">
-                <label for="name1">اسمك</label>
-                <input type="text" name="name" id="name1" required>
-            </div>
-            <div class="form-group">
-                <label for="number1"> رقم جوالك</label>
-                <input type="tel" name="phone" id="number1" required>
-            </div>
-            <div class="form-group">
-                <label for="instagram"> حساب الانستغرام</label>
-                <input type="text" name="instagram" id="instagram">
-            </div>
-            <div class="form-group">
-                <label for="twitter">حساب اكس</label>
-                <input type="text" name="twitter" id="twitter">
-            </div>
-            <div class="form-group">
-                <label for="snapchat">حساب سناب شات</label>
-                <input type="text" name="snapchat" id="snapchat">
-            </div>
-            <button type="submit" class="button">ارسال</button>
-        </form>
-    </div>
-</div>
-
-<!-- Message Form Modal -->
-<div id="messageForm" class="modal">
-    <div class="modal-content">
-        <button class="close-button" onclick="closeModal('messageForm')">&times;</button>
-        <h2 style="margin-bottom: 20px;"> توقع واربح معنا</h2>
-        <form onsubmit="submitForm(event, 'messageForm')">
-            <input type="hidden" name="access_key" value="6a7e46df-53ce-4ffe-be77-97eb03b5187d">
-            <input type="hidden" name="subject" value="New Message Form Submission">
+            const statusText = document.getElementById('status-text');
+            const statusIndicator = document.getElementById('status-indicator');
             
-            <div class="form-group">
-                <label for="name2">اسمك</label>
-                <input type="text" name="name" id="name2" required>
-            </div>
-            <div class="form-group">
-                <label for="number2"> رقم جوالك</label>
-                <input type="tel" name="phone" id="number2" required>
-            </div>
-            <div class="form-group">
-                <label for="message">توقعك للنشاط</label>
-                <textarea name="message" id="message" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="button"> ارسال التوقع</button>
-        </form>
-    </div>
-</div>
+            let isOpen = false;
+            
+            if (currentDay === 5) { // Friday
+                isOpen = currentHour >= 16; // After 4 PM
+            } else if (currentDay >= 6 || currentDay <= 4) { // Saturday to Thursday
+                isOpen = true; // 24 hours
+            }
+            
+            if (isOpen) {
+                statusText.textContent = 'مفتوح الآن';
+                statusIndicator.classList.add('open');
+                statusIndicator.classList.remove('closed');
+            } else {
+                statusText.textContent = 'مغلق الآن';
+                statusIndicator.classList.add('closed');
+                statusIndicator.classList.remove('open');
+            }
+        }
 
-    <script src="script.js"></script>
+        // Open location in maps
+        function openLocation() {
+            window.open('https://maps.app.goo.gl/1B3d35A3fxCMnYBD8', '_blank');
+        }
+
+        // Show offers modal
+        function showOffers() {
+            const modal = document.getElementById('offersModal');
+            const offersImage = document.getElementById('offersImage');
+            
+            // You can replace this with the actual image URL for offers
+            offersImage.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMmM1NTMwIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI0MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2Y2YjkxYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+2KfZhNi52LHZiNi2INin2YTYrdin2YTZitipPC90ZXh0PgogIDx0ZXh0IHg9IjUwJSIgeT0iNjAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Ys9mK2KrZhSDYo9i22KfZgdipINin2YTYudix2YjYtiDZgtix2YrYqNin2YE8L3RleHQ+Cjwvc3ZnPgo=';
+            
+            modal.style.display = 'flex';
+        }
+
+        // Close offers modal
+        function closeOffers() {
+            const modal = document.getElementById('offersModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('offersModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateStatus();
+            
+            // Update status every minute
+            setInterval(updateStatus, 60000);
+        });
+
+        // Add staggered animation delays to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach((button, index) => {
+                button.style.animationDelay = (index * 0.2) + 's';
+            });
+        });
+    </script>
 </body>
 </html>
